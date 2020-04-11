@@ -41,7 +41,7 @@ namespace AutoClicker
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        public Clicker(int holdDownMin, int holdDownMax, int betweenClickMin, int betweenClickMax, Keys activationKey)
+        public Clicker(int betweenClickMin, int betweenClickMax, int holdDownMin, int holdDownMax, Keys activationKey)
         {
             Clicker.HoldDownMin = holdDownMin;
             Clicker.HoldDownMax = holdDownMax;
