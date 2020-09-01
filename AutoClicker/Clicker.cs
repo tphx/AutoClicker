@@ -110,26 +110,18 @@ namespace AutoClicker
         {
             int vkCode = Marshal.ReadInt32(lParam);
 
-            if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
+            if (nCode >= 0 && (Keys)vkCode == ActivationKey)
             {
-                if ((Keys)vkCode == ActivationKey)
+                if (wParam == (IntPtr)WM_KEYDOWN && !clickTimer.Enabled)
                 {
-                    if(!clickTimer.Enabled)
-                    {
-                        clickTimer.Start();
-                    }
+                    clickTimer.Start();
+                }
+                else if (wParam == (IntPtr)WM_KEYUP && clickTimer.Enabled)
+                {
+                    clickTimer.Stop();
                 }
             }
-            else if (nCode >= 0 && wParam == (IntPtr)WM_KEYUP)
-            {
-                if ((Keys)vkCode == ActivationKey)
-                {
-                    if (clickTimer.Enabled)
-                    {
-                        clickTimer.Stop();
-                    }
-                }
-            }
+
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
     }
